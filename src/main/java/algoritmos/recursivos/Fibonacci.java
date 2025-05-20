@@ -1,5 +1,8 @@
 package algoritmos.recursivos;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Fibonacci {
 
     public static int fibonacciRecursivo(int n) {
@@ -8,6 +11,19 @@ public class Fibonacci {
         } else {
             return fibonacciRecursivo(n - 1) + fibonacciRecursivo(n - 2);
         }
+    }
+
+    private static Map<Integer, Integer> cache = new HashMap<>();
+    public static int fibonacciRecursivoMemorizado(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        if (cache.containsKey(n)) {
+            return cache.get(n);
+        }
+        int result = fibonacciRecursivoMemorizado(n - 1) + fibonacciRecursivoMemorizado(n - 2);
+        cache.put(n, result);
+        return result;
     }
 
     public static int fibonacciIterativo(int n) {
@@ -27,7 +43,7 @@ public class Fibonacci {
     }
 
     public static void main(String[] args) {
-        int n = 5;
+        int n = 40;
 
         //Medição do tempo para versão recursiva
         long inicioRecursivo = System.nanoTime();
@@ -41,12 +57,21 @@ public class Fibonacci {
         long fimIterativo = System.nanoTime();
         long tempoIterativo = fimIterativo - inicioIterativo;
 
+        //Medição do tempo para versão recursiva memorizada
+        long inicioRecursivoMemorizado = System.nanoTime();
+        int resultadoRecursivoMemorizado = fibonacciRecursivoMemorizado(n);
+        long fimRecursivoMemorizado = System.nanoTime();
+        long tempoRecursivoMemorizado = fimRecursivoMemorizado - inicioRecursivoMemorizado;
+
         //Apresentação dos Resultados Medidos
         System.out.println("Resultado recursivo: " + resultadoRecursivo);
         System.out.println("Tempo recursivo (ns): " + tempoRecursivo);
         System.out.println("Resultado iterativo: " + resultadoIterativo);
         System.out.println("Tempo iterativo (ns): " + tempoIterativo);
-        System.out.println("Diferença (ns): " + (tempoRecursivo - tempoIterativo));
+        System.out.println("Resultado recursivo memorizado: " + resultadoRecursivoMemorizado);
+        System.out.println("Tempo recursivo memorizado (ns): " + tempoRecursivoMemorizado);
+        System.out.println("Diferença p/ o Recursivo Comum (ns): " + (tempoRecursivo - tempoRecursivoMemorizado));
+        System.out.println("Diferença p/ o Iterativo (ns): " + (tempoIterativo - tempoRecursivoMemorizado));
     }
 
 }

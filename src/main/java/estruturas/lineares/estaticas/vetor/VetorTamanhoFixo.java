@@ -133,11 +133,12 @@ public class VetorTamanhoFixo<T> implements TDAVetor<T>,Iterable<T> {
     }
 
     @Override
-    public void removerInicio() {
+    public String removerInicio() {
         if (estaVazio()) {
             throw new IllegalStateException("O vetor está vazio. Não é possível remover o primeiro elemento.");
         }
         remover(0);
+        return null;
     }
 
     @Override

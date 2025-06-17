@@ -47,7 +47,7 @@ public interface TDAVetor<T> {
     public void removerElemento(T elemento);
 
     //Remove o primeiro elemento do vetor
-    public void removerInicio();
+    public String removerInicio();
 
     //Remove o último elemento  do vetor
     public void removerFim();

@@ -142,8 +142,9 @@ public class VetorTamanhoVariavel<T> implements TDAVetor<T>,Iterable<T> {
     }
 
     @Override
-    public void removerInicio() {
+    public String removerInicio() {
         this.remover(0);
+        return null;
     }
 
     @Override
@@ -154,6 +155,31 @@ public class VetorTamanhoVariavel<T> implements TDAVetor<T>,Iterable<T> {
     @Override
     public String imprimir() {
         return Arrays.toString(Arrays.copyOf(this.elementos, this.tamanho));
+    }
+
+    public void adicionarTodos(T[] novosElementos) {
+        if (novosElementos == null) {
+            throw new IllegalArgumentException("O array de novos elementos não pode estar vazio.");
+        }
+        if (novosElementos.length == 0) {
+            return; // Nada para adicionar.
+        }
+
+        // Calcula o tamanho total necessário após a adição dos novos elementos.
+        int tamanhoNecessario = this.tamanho + novosElementos.length;
+
+        // Se a capacidade atual do array interno for menor que o tamanho necessário, redimensiona.
+        if (tamanhoNecessario > this.elementos.length) {
+            // Para evitar múltiplos redimensionamentos pequenos, o metodo seleciona o maior entre os dois tamanhos passados por parâmetro.
+            int novaCapacidade = Math.max(this.elementos.length * 2, tamanhoNecessario);
+            redimensionar(novaCapacidade);
+        }
+
+        // Copia os novos elementos para o final do array interno.
+        System.arraycopy(novosElementos, 0, this.elementos, this.tamanho, novosElementos.length);
+
+        // Atualiza o tamanho lógico do vetor.
+        this.tamanho += novosElementos.length;
     }
 
     @Override
@@ -174,5 +200,21 @@ public class VetorTamanhoVariavel<T> implements TDAVetor<T>,Iterable<T> {
                 return elementos[indice++];
             }
         };
+    }
+
+    public T[] getElementos() {
+        return elementos;
+    }
+
+    public void setElementos(T[] elementos) {
+        this.elementos = elementos;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(int tamanho) {
+        this.tamanho = tamanho;
     }
 }

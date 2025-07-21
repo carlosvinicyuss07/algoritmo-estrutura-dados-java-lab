@@ -152,24 +152,32 @@ public class ListaSimplesmenteEncadeada<T> implements IListaSimplesmenteEncadead
     @Override
     public void remover(T dado) {
         if (contem(dado)) {
+            if (primeiroNo == null) {
+                return;
+            }
             if (primeiroNo.obterDado().equals(dado)) {
                 removerInicio();
+                return;
             }
-            if (ultimoNo.obterDado().equals(dado)) {
-                removerFim();
-            }
-            INoListaSimplesmenteEncadeada<T> noAtual = this.primeiroNo;
-            int i = 1;
-            while (i < quantidadeNos) {
-                if (noAtual.obterProximoNo().obterDado().equals(dado)) {
-                    noAtual.definirProximoNo(noAtual.obterProximoNo().obterProximoNo());
-                    quantidadeNos--;
-                    break;
+
+            INoListaSimplesmenteEncadeada<T> noAtual = this.primeiroNo.obterProximoNo();
+            INoListaSimplesmenteEncadeada<T> noAnterior = this.primeiroNo;
+
+            while (noAtual != null) {
+                if (noAtual.obterDado().equals(dado)) {
+                    if (noAtual == ultimoNo) {
+                        removerFim();
+                    } else {
+                        noAnterior.definirProximoNo(noAtual.obterProximoNo());
+                        quantidadeNos--;
+                    }
+                    return;
                 }
+                noAnterior = noAtual;
                 noAtual = noAtual.obterProximoNo();
-                i++;
             }
         }
+        System.out.println("O dado '" + dado + "' não foi encontrado na lista.");
     }
 
     @Override

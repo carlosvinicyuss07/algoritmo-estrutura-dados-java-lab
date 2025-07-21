@@ -13,6 +13,7 @@ public class AppListaSimplesmenteEncadeada {
         lista.adicionarFim("D");
         System.out.println(lista.imprimir());
         lista.remover("C");
+        lista.remover("A");
         System.out.println(lista.imprimir());
 
     }

@@ -2,7 +2,7 @@ package estruturas.lineares.dinamicas.lista;
 
 import java.util.Iterator;
 
-public interface IListaSimplesmenteEncadeada<T> {
+public interface IListaSimplesmenteEncadeada<T> extends Iterable<T> {
 
     //Retorna a referencia do primeiro nó da lista
     public INoListaSimplesmenteEncadeada<T> obterPrimeiroNo();

@@ -12,7 +12,7 @@ public enum Gravidade {
     private final String descricao;
 
     Gravidade(int nivel, String descricao) {
-        this.nivel = 0;
+        this.nivel = nivel;
         this.descricao = descricao;
     }
 
